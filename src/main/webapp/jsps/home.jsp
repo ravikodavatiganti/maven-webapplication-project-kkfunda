@@ -46,7 +46,7 @@
 <body>
 
 <header>
-    <h1>  DEVSECOPS Portal </h1>
+    <h1> HEllo DEVSECOPS Portal </h1>
     <h3>Training | Development | Consulting</h3>
 </header>
 
@@ -75,7 +75,7 @@
     <!-- Contact Info -->
     <div class="info-card text-center">
         <img src="images/kkfunda.jpg" alt="KK FUNDA Logo" width="120" class="mb-3 rounded-circle shadow">
-        <h4>KK FUNDA</h4>
+        <h4>DEVOPS</h4>
         <p><b>Address:</b> Martha Halli, Bangalore</p>
         <p><b>Phone:</b> +91-9676831734</p>
         <p><b>Email:</b> <a href="mailto:kkeducationblr@gmail.com">kkeducationblr@gmail.com</a></p>
