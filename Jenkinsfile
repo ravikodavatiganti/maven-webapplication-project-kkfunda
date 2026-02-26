@@ -1,5 +1,8 @@
 node {
  def mavenHome = tool name: "maven392"
+   echo "git branch name: ${env.BRANCH_NAME}"
+   echo "build number is: ${env.BUILD_NUMBER}"
+   echo "node name is: ${env.NODE_NAME}"
 
   try
     {
