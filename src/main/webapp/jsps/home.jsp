@@ -54,7 +54,7 @@
 
     <!-- Server Info -->
     <div class="info-card">
-        <h3>🌐 Home page Server Side Information</h3>
+        <h3>🌐 Ravi DL Pipeline</h3>
         <hr>
         <%
             InetAddress inetAddress = InetAddress.getLocalHost();
