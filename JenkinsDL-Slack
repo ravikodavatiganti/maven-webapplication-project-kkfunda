@@ -1,0 +1,85 @@
+pipeline {
+    agent any
+    
+    tools {
+        maven 'maven392'
+    }
+
+    environment {
+        SLACK_CHANNEL = '#jio-dev'
+    }
+
+    stages {
+
+        stage('Git') {
+            steps {
+                git branch: 'development',
+                    url: 'https://github.com/ravikodavatiganti/maven-webapplication-project-kkfunda.git'
+            }
+        }
+
+        stage('Maven Build') {
+            steps {
+                sh 'mvn -B clean package'
+            }
+        }
+
+        stage('SQ') {
+            steps {
+                sh 'mvn -B sonar:sonar'
+            }
+        }
+
+        stage('Nexus') {
+            steps {
+                sh 'mvn -B deploy'
+            }
+        }
+
+        stage('Tomcat') {
+            steps {
+                echo 'from Tomcat'
+                sh """
+                curl -u ravi:ravi \
+                --upload-file target/maven-web-application.war \
+                "http://100.52.177.243:8080/manager/text/deploy?path=/maven-web-application&update=true&war="
+                """
+            }
+        }
+    }
+
+    post {
+
+        started {
+            slackSend(
+                channel: "${SLACK_CHANNEL}",
+                color: '#FFFF00',
+                message: "🟡 STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' started.\nBuild URL: ${env.BUILD_URL}"
+            )
+        }
+
+        success {
+            slackSend(
+                channel: "${SLACK_CHANNEL}",
+                color: 'good',
+                message: "🟢 SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' completed successfully.\nBuild URL: ${env.BUILD_URL}"
+            )
+        }
+
+        aborted {
+            slackSend(
+                channel: "${SLACK_CHANNEL}",
+                color: '#808080',
+                message: "⚪ ABORTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' was aborted.\nBuild URL: ${env.BUILD_URL}"
+            )
+        }
+
+        failure {
+            slackSend(
+                channel: "${SLACK_CHANNEL}",
+                color: 'danger',
+                message: "🔴 FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' failed.\nBuild URL: ${env.BUILD_URL}"
+            )
+        }
+    }
+}
