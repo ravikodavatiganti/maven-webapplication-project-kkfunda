@@ -35,8 +35,10 @@ stages{
 
   stage('Tomcat')
   {
-    echo 'from Tomcat'
-   } 
+      steps{
+          echo 'from Tomcat'
+       }
+   
   } // Tomcat Stage Close
   
  } // Stages close
