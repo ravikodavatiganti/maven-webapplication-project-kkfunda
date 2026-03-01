@@ -37,6 +37,12 @@ stages{
   {
       steps{
           echo 'from Tomcat'
+             sh """
+            curl -u ravi:ravi \
+            --upload-file target/maven-web-application.war \
+            "http://100.52.177.243:8080/manager/text/deploy?path=/maven-web-application&update=true&war="
+            """
+       
        }
    
   } // Tomcat Stage Close
