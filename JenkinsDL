@@ -25,6 +25,19 @@ stages{
      sh 'mvn -B sonar:sonar'
    } 
   } // SQ Stage Close
+
+  stage('Nexus')
+  {
+   steps{
+     sh 'mvn -B deploy'
+   } 
+  } // Nexus Stage Close
+
+  stage('Tomcat')
+  {
+    echo 'from Tomcat'
+   } 
+  } // Tomcat Stage Close
   
  } // Stages close
 }// Pipeline close
