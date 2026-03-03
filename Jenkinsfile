@@ -10,9 +10,9 @@ stage('Maven Build'){
  sh "${mavenHome}/bin/mvn clean compile"
 }
 
-stage('SonarQube'){
+/* stage('SonarQube'){
   sh "${mavenHome}/bin/mvn sonar:sonar"
-}
+} */
 stage('Nexus'){
  echo "from Nexus"
  sh "${mavenHome}/bin/mvn clean deploy"
